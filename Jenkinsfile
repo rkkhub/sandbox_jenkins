@@ -45,16 +45,13 @@ pipeline {
       }
     }
     stage('Cleanup') {
-  when {
-    always()
-  }
-  steps {
-    script {
-      // Remove image by tag
-      sh "docker rmi -f ${env.IMAGE_NAME} || true"
-    }
-  }
+        steps {
+            script {
+            sh "docker rmi -f ${env.IMAGE_NAME} || true"
+            }
+        }
 }
+
 
   } // stages
 
