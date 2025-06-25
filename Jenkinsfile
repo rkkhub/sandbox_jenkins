@@ -39,7 +39,7 @@ pipeline {
           // run pytest inside the new image, generate JUnit XML
           docker.image(env.IMAGE_NAME).inside('--entrypoint=') {
             sh 'pwd && ls -l'
-            sh 'pytest --junitxml=/var/jenkins_home/workspace/fastapi_testing/reports/junit.xml'
+            sh 'pytest --junitxml=./reports/junit.xml'
           }
         }
       }
