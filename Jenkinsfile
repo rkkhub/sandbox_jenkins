@@ -39,7 +39,7 @@ pipeline {
           // run pytest inside the new image, generate JUnit XML
           docker.image(env.IMAGE_NAME).inside('--entrypoint=') {
             sh 'pwd && ls -l'
-            sh 'pytest --junitxml=reports/junit.xml"'
+            sh 'pytest --junitxml=reports/junit.xml'
           }
           // now list from the host’s POV
           sh 'ls -R reports'
