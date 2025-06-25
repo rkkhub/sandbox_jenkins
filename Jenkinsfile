@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+//   agent any
+  agent { label 'default-agent' }
+
 
   environment {
     // image name + unique tag per build
