@@ -39,8 +39,11 @@ pipeline {
           // run pytest inside the new image, generate JUnit XML
           docker.image(env.IMAGE_NAME).inside('--entrypoint=') {
             sh 'pwd && ls -l'
-            sh 'pytest --junitxml=./reports/junit.xml'
+            sh '-lc "pwd; ls -R .; pytest --junitxml=reports/junit.xml"'
           }
+          // now list from the host’s POV
+          sh 'ls -R reports'
+
         }
       }
     }
@@ -50,16 +53,13 @@ pipeline {
             sh "docker rmi -f ${env.IMAGE_NAME} || true"
             }
         }
-}
-
-
-  } // stages
-
+    }} // stages
   post {
     always {
-      // archive & display test results in Jenkins
-      junit '/var/jenkins_home/workspace/fastapi_testing/reports/junit.xml'
-      archiveArtifacts artifacts: 'reports/**/*.xml', fingerprint: true
+        // archive & display test results in Jenkins
+        // match one file…
+        junit 'reports/junit.xml'
+        archiveArtifacts artifacts: 'reports/junit.xml', fingerprint: true, allowEmptyArchive: true
     }
   }
 }
