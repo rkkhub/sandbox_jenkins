@@ -1,6 +1,6 @@
 pipeline {
-//   agent any
-  agent { label 'docker-agent' }
+  agent any
+//   agent { label 'docker-agent' }
 
 
   environment {
